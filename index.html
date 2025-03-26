@@ -149,13 +149,13 @@
         const scoreElement = document.getElementById('score');
         const gameOverScreen = document.getElementById('game-over');
         
-        // Control buttons
+      
         const upBtn = document.getElementById('up-btn');
         const downBtn = document.getElementById('down-btn');
         const leftBtn = document.getElementById('left-btn');
         const rightBtn = document.getElementById('right-btn');
 
-        // Make canvas responsive
+        
         const resizeCanvas = () => {
             if (window.innerWidth < 500) {
                 canvas.style.width = '300px';
@@ -198,11 +198,11 @@
         }
 
         function draw() {
-            // Clear canvas
+           
             ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw snake
+            
             snake.forEach((segment, index) => {
                 ctx.fillStyle = index === 0 ? '#0f0' : '#0f03';
                 ctx.fillRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE - 2, GRID_SIZE - 2);
@@ -210,7 +210,7 @@
                 ctx.strokeRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE - 2, GRID_SIZE - 2);
             });
 
-            // Draw food
+            
             ctx.fillStyle = '#f00';
             ctx.beginPath();
             ctx.arc(
@@ -234,7 +234,7 @@
                 case 'right': head.x++; break;
             }
 
-            // Check collision with walls or self
+    
             if (head.x < 0 || head.x >= GRID_COUNT ||
                 head.y < 0 || head.y >= GRID_COUNT ||
                 snake.some(segment => segment.x === head.x && segment.y === head.y)) {
@@ -244,7 +244,7 @@
 
             snake.unshift(head);
 
-            // Check food collision
+           
             if (head.x === food.x && head.y === food.y) {
                 score += 10;
                 scoreElement.textContent = `SCORE: ${score}`;
@@ -278,7 +278,7 @@
             draw();
         }
 
-        // Handle keyboard input
+       
         document.addEventListener('keydown', (e) => {
             e.preventDefault();
             switch(e.key) {
@@ -297,7 +297,7 @@
             }
         });
         
-        // Control button handlers
+       
         upBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (direction !== 'down') nextDirection = 'up';
@@ -318,7 +318,7 @@
             if (direction !== 'left') nextDirection = 'right';
         });
 
-        // Add mouse support for control buttons (for testing on desktop)
+        
         upBtn.addEventListener('mousedown', () => {
             if (direction !== 'down') nextDirection = 'up';
         });
@@ -335,7 +335,7 @@
             if (direction !== 'left') nextDirection = 'right';
         });
         
-        // Add swipe controls for mobile
+        
         document.addEventListener('touchstart', (e) => {
             lastTouchX = e.touches[0].clientX;
             lastTouchY = e.touches[0].clientY;
@@ -352,9 +352,9 @@
             const diffX = touchX - lastTouchX;
             const diffY = touchY - lastTouchY;
             
-            // Check if it's a significant swipe
+            
             if (Math.abs(diffX) > 30 || Math.abs(diffY) > 30) {
-                // Determine if the swipe is more horizontal or vertical
+              
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     // Horizontal swipe
                     if (diffX > 0 && direction !== 'left') {
@@ -363,7 +363,7 @@
                         nextDirection = 'left';
                     }
                 } else {
-                    // Vertical swipe
+                   
                     if (diffY > 0 && direction !== 'up') {
                         nextDirection = 'down';
                     } else if (diffY < 0 && direction !== 'down') {
@@ -373,14 +373,14 @@
             }
         }, false);
         
-        // Prevent long touch context menu on mobile
+       
         window.addEventListener('contextmenu', (e) => {
             if (e.target.classList.contains('control-btn')) {
                 e.preventDefault();
             }
         });
 
-        // Start game
+        
         restartGame();
     </script>
 </body>
